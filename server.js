@@ -28,7 +28,17 @@ db.once("open",()=>{
      * 
      * need to create the ADMIN USER
      */
-    const admin =await userModel.create({
+    /**
+     * check if admin user already present
+     */
+    let admin= await userModel.findOne({
+        userId:"admin"
+    })
+    if(admin){
+        console.log("admin user already present");
+        return;
+    }
+     admin =await userModel.create({
         name:"ravi kumar",
         userId:"admin",
         email:"ravikumarjnv267@gmail.com",
