@@ -3,6 +3,8 @@ const serverConfig=require('./configs/server.config');
 const mongoose =require('mongoose');
 const dbConfig=require('./configs/db.config')
 
+const userModel=require('./models/user.model')
+
 
 
 
@@ -18,7 +20,25 @@ db.on("error",()=>{
 });
 db.once("open",()=>{
     console.log("database is connected");
+    init();
 })
+ async function init(){
+    /**
+     * intialize the mongodb
+     * 
+     * need to create the ADMIN USER
+     */
+    const admin =await userModel.create({
+        name:"ravi kumar",
+        userId:"admin",
+        email:"ravikumarjnv267@gmail.com",
+        userType:"ADMIN",
+        password:"ravi123"
+
+    });
+    console.log(admin);
+
+}
   
 
 app.listen(serverConfig.PORT,()=>{
